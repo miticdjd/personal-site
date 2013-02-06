@@ -1,0 +1,72 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.container {
+    max-width: 700px;
+}
+
+.header {
+    height: 50px;
+}
+
+.leaderboard {
+    text-align: center;
+}
+
+.img-polaroid {
+    margin-top: 5px;
+}
+
+fieldset {
+    width: 100%;
+}
+
+/* Large desktop */
+@media (min-width: 980px) {
+    
+    h1 {
+        font-size: 72px;
+        line-height: 1;
+    }
+    
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+
+    h1 {
+        font-size: 60px;
+        line-height: 1;
+    }
+    
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+    
+    h1 {
+        font-size: 38px;
+        line-height: 1;
+    }
+    
+    h3 {
+        font-size: 18px;
+    }
+    
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+    
+    h1 {
+        font-size: 25px;
+        line-height: 1;
+    }
+    
+    h3 {
+        font-size: 18px;
+    }
+    
+}
