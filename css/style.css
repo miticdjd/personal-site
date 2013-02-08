@@ -19,6 +19,12 @@ body {
     margin-top: 5px;
 }
 
+.footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 50px;
+}
+
 fieldset {
     width: 100%;
 }
@@ -55,6 +61,10 @@ fieldset {
         font-size: 18px;
     }
     
+    .footer {
+        font-size: 10px;
+    }
+    
 }
 
 /* Landscape phones and down */
@@ -67,6 +77,10 @@ fieldset {
     
     h3 {
         font-size: 18px;
+    }
+    
+    .footer {
+        font-size: 10px;
     }
     
 }
