@@ -21,27 +21,43 @@
             </ul>
          </div>
          
+         <div class="row contactme-success">
+            <div class="alert alert-success">
+                <h4>Thank you for sending message!</h4>
+                I'll try to answer as soon as possible usually within 48 hours.
+            </div>
+         </div>
+         
+         <div class="row contactme-error">
+            <div class="alert alert-error">
+                <h4>Error sending message!</h4>
+                Please fix following errors:
+                <ul id="errors-list">
+                </ul>
+            </div>
+         </div>
+         
          <div class="row">
-                 <form action="#null" method="post">
+                 <form action="#null" method="post" id="contactme">
                      <fieldset>
                          <legend>Contact me</legend>
                          <label>Your name</label>
-                         <input type="text" name="name" placeholder="Your name">
+                         <input id="name" type="text" name="name" placeholder="Your name" class="required" />
                          <label>Your email</label>
-                         <input type="text" name="email" placeholder="Your email">
+                         <input id="email" type="text" name="email" placeholder="Your email" class="required email">
                          <label>Subject</label>
-                         <input type="text" name="subject" placeholder="Subject">
+                         <input id="subject" type="text" name="subject" placeholder="Subject">
                          <label>Message</label>
-                         <textarea rows="3"></textarea>
+                         <textarea id="message" rows="3" class="required"></textarea>
                          <label>Are you human?</label>
                          <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LcBONwSAAAAAOUyhZpSsHBS1oUk_ob4Ri_nzHpj"></script>
                          <noscript>
                             <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LcBONwSAAAAAOUyhZpSsHBS1oUk_ob4Ri_nzHpj" height="300" width="300" frameborder="0"></iframe><br>
-                            <textarea name="recaptcha_challenge_field" rows="3" cols="40"> </textarea>
-                            <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+                            <textarea id="recaptcha_challenge_field" name="recaptcha_challenge_field" rows="3" cols="40"> </textarea>
+                            <input id="recaptcha_response_field" type="hidden" name="recaptcha_response_field" value="manual_challenge">
                          </noscript>
                          <br />
-                         <button type="submit" class="btn">Submit</button>
+                         <button type="button" class="btn" id="send-message">Send</button>
                      </fieldset>
                  </form>
                  You can also contact me via:<br />
@@ -59,5 +75,67 @@
      
     <script src="/js/jquery-1.9.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            $('#send-message').click(function(){
+                
+                /* First validate form */
+                if (!$('#contactme').valid())
+                {
+                    return false;
+                }
+                
+                /* Send post request */
+                $.post("/contactme.php", 
+                { 
+                    name: $('#name').val(), 
+                    email: $('#email').val(), 
+                    subject: $('#subject').val(), 
+                    message: $('#message').val(),
+                    recaptcha_challenge_field: $('#recaptcha_challenge_field').val(),
+                    recaptcha_response_field: $('#recaptcha_response_field').val()
+                },
+                function(data){
+                    if (data.status)
+                    {
+                        /* Everything is ok display success message */
+                        $('.contactme-error').fadeOut();
+                        $('.contactme-success').fadeIn();
+                        $('.contactme-success').scroll();
+                        holder = $('.contactme-success');
+                    }
+                    else
+                    {
+                        /* Something is wrong, display error message */
+                        var items = [];
+                        $.each(data.errors, function (id, option) {
+                            items.push('<li>' + option + '</li>');
+                        });  
+                        
+                        $('#errors-list').html(items.join(''));
+                        $('.contactme-error').fadeIn();
+                        holder = $('.contactme-error');
+                    }
+                    
+                    /* Reload captch and empty input fields */
+                    Recaptcha.reload();
+                    $('#name').val(''); 
+                    $('#email').val(''); 
+                    $('#subject').val(''); 
+                    $('#message').val('');
+                    
+                    /* Scroll to message */
+                    $('html, body').animate({
+                        scrollTop: holder.offset().top
+                    }, 500);
+                    
+                }, "json");
+            });
+            
+        });
+    </script>
+    
  </body>
 </html>
