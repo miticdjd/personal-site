@@ -57,7 +57,7 @@
                             <input id="recaptcha_response_field" type="hidden" name="recaptcha_response_field" value="manual_challenge">
                          </noscript>
                          <br />
-                         <button type="button" class="btn" id="send-message">Send</button>
+                         <button type="button" class="btn" id="send-message">Send</button><div class="loading"></div>
                      </fieldset>
                  </form>
                  You can also contact me via:<br />
@@ -86,6 +86,10 @@
                 {
                     return false;
                 }
+                
+                /* Hide button and show loading image */
+                $('#send-message').hide();
+                $('.loading').show();
                 
                 /* Send post request */
                 $.post("/contactme.php", 
@@ -130,6 +134,10 @@
                     $('html, body').animate({
                         scrollTop: holder.offset().top
                     }, 500);
+                    
+                    /* Hide loader and show button*/
+                    $('#send-message').show();
+                    $('.loading').hide();
                     
                 }, "json");
             });

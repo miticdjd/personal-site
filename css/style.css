@@ -33,6 +33,15 @@ label.error {
     margin-left: 5px;
 }
 
+.loading {
+    display: none;
+    width: 40px;
+    height: 40px;
+    background-image: url('/img/loading.gif');
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+
 .contactme-error {
     display: none;
 }
