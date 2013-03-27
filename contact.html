@@ -105,6 +105,10 @@
                     if (data.status)
                     {
                         /* Everything is ok display success message */
+                        $('#name').val(''); 
+                        $('#email').val(''); 
+                        $('#subject').val(''); 
+                        $('#message').val('');
                         $('.contactme-error').fadeOut();
                         $('.contactme-success').fadeIn();
                         $('.contactme-success').scroll();
@@ -120,15 +124,12 @@
                         
                         $('#errors-list').html(items.join(''));
                         $('.contactme-error').fadeIn();
+                        $('.contactme-success').fadeOut();
                         holder = $('.contactme-error');
                     }
                     
                     /* Reload captch and empty input fields */
                     Recaptcha.reload();
-                    $('#name').val(''); 
-                    $('#email').val(''); 
-                    $('#subject').val(''); 
-                    $('#message').val('');
                     
                     /* Scroll to message */
                     $('html, body').animate({
