@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteBase /
+RewriteRule ^css/(.*\.css) /curtail.php?type=css&files=$1
+RewriteRule ^js/(.*\.js) /curtail.php?type=js&files=$1
