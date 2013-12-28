@@ -90,7 +90,7 @@ if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && stripslashes($_SERVER['HTTP_IF_NONE
         $content = '';
         
         foreach ($files as $file) {
-            $content .= '\n\n' . file_get_contents($baseDir . $file);
+            $content .= "\n\n" . file_get_contents($baseDir . $file);
         }
         
         header ('Content-Type: ' . $contentType);
